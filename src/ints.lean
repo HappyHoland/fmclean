@@ -1,7 +1,7 @@
+import init.data.set
+open set
 
-
-def divides (a b: int) := ∃k:int, a*k = b
-infix ` | `:55 := divides
+constant P: set int
 
 axiom add_id_R (a: int):
   a + 0 = a
@@ -29,6 +29,37 @@ axiom mul_add (a b c: int):
 
 axiom mul_eq_zero_imp_disj (a b: int):
   a*b = 0 → a = 0 ∨ b = 0
+
+axiom one_neq_zero:
+  1 ≠ 0
+
+axiom P_add_fech (a b: int): 
+  a ∈ P ∧ b ∈ P → (a + b) ∈ P
+
+axiom P_mul_fech (a b: int):
+  a ∈ P ∧ b ∈ P → (a * b) ∈ P
+
+axiom P_tric (a: int):
+  (a ∈ P ∧ a ≠ 0 ∧ -a ∉ P) ∨ (a ∉ P ∧ a = 0 ∧ -a ∉ P) ∨ (a ∉ P ∧ a ≠ 0 ∧ -a ∈ P)
+
+def divides (a b: int) := ∃k:int, a*k = b
+infix ` | `:55 := divides
+
+def greater_than (a b: int) := (a-b) ∈ P
+infix ` > `:55 := greater_than
+
+def lesser_than (a b: int) := b > a
+infix ` < `:55 := lesser_than
+
+def geq (a b: int) := a = b ∨ a > b
+infix ` >= ` :55 := geq
+
+def leq (a b: int) := a = b ∨ a < b
+infix ` <= ` :55 := leq
+
+def subtract (a b: int) := a + -b
+infix ` - ` :55 := subtract
+
 
 theorem add_id_L (a: int): 0 + a = a :=
   begin
@@ -437,3 +468,4 @@ theorem uni_mul_id_1 (a : int):
         rw h10 at h8,
         assumption,
   end
+
